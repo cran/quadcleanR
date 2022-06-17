@@ -1,0 +1,360 @@
+---
+title: "Cleaning and Cropping Quadrat Data"
+description: >
+  A complex walk through of how to clean up quadrat data using the `quadcleanR`
+  package. This will go through all the functions inclusing the `crop_area()`
+  function, as well as visualizing the resulting data. This vignette is good
+  for those who have to crop quadrats and clean up the data. 
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Cleaning and Cropping Quadrat Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+This vignette will walk you through cleaning up quadrat data to produce easy to analyze data frames.
+
+A little about the data:
+
+The data being cleaned will be the `softcoral_SQuads` and this vignette will build off of the cropping vignette as well. Data was collected by the Baum Lab and Kiritimati Field Teams and is the uncleaned version of data found in Maucieri and Baum 2021. Biological Conservation. The `softcoral_SQuads` data are from photo quadrats (0.9m by 0.6m) which were randomly annotated with 54 random points each, while the `softcoral_annotations` data are from photo quadrats (1m by 1m) which were randomly annotated with 100 random points each. At each of these annotated points, the substrate was identified. Photo quadrats were collected on Kiritimati Island in the Republic of Kiribati and document coral cover over time and space. The annotations and output of the data frame were produced using [CoralNet](https://coralnet.ucsd.edu/) and all annotations were done manually, by trained researchers.
+
+So this vignette will follow the following steps:
+
+1. Take the small quadrats (`softcoral_SQuads`) and show how to clean the data
+
+2. Then crop the large quadrat data (`softcoral_annotations`) and clean it too
+
+3. Join the two together to produce a large, easy to use data frame for future analyses, with some further cleaning of this joint data set. 
+
+First lets load the package, the dplyr package, tidyr package and the data, plus a few extras used to create this vignette.
+
+
+```{r load package, message = FALSE, warning = FALSE}
+
+library(quadcleanR)
+library(dplyr)
+library(tidyr)
+library(shiny)
+library(knitr)
+library(kableExtra)
+
+
+data("softcoral_SQuads")
+
+```
+
+
+Now let me point out some unique aspects of this data:
+
+```{r head and tail, results='hide'}
+
+tail(softcoral_SQuads)
+
+```
+
+```{r head and tail cleaner md output, message = FALSE, echo = FALSE, results='asis'}
+
+knitr::kable(tail(softcoral_SQuads), align = 'c') %>%
+  kable_styling("striped", full_width = F) %>% 
+  scroll_box(width = "100%")
+
+```
+
+This data as an `Image.ID` column which was arbitrarily added to this data set, so we are going to remove that as it holds no scientific value. There is also a final row which sums all quadrats but since we will be removing quadrats and points to clean these data up, we will remove that final row as well. The `Image.name` column is the unique ID for each photo quadrat, but it is very messy and not easy to use, so we will make this into new columns and add more information. `Annotation.status` is a column from [CoralNet](https://coralnet.ucsd.edu/) which tells if the annotations in each photo quadrat have been confirmed by human researchers or are only based on AI. The `Points` column tells us how many randomly annotated points there are in each quadrat, and since they are all 54, we know these data are from the smaller quadrats. The rest of the columns are the different coral and substrate IDs and how many points where annotated for each tag in each photo.
+
+So first, lets remove unneeded columns and make sure we are only working with "Confirmed" annotations.
+
+```{r confirmed annotation status}
+
+SQuad_confirmed <- softcoral_SQuads %>% filter(Annotation.status == "Confirmed") %>% select(-c(Image.ID, Points, Annotation.status))
+
+```
+
+Now we will separate the `Image.name` column into more descriptive columns.
+
+```{r separating ID}
+
+SQuad_separated <- separate(SQuad_confirmed, Image.name, sep="_", into=c("Field.Season", "Site","Quadrat"))
+
+```
+
+But if you notice, there are still .jpg and .jpeg in the quadrat names, so lets remove those, and change the naming of siteT19 to site40.
+
+```{r remove jpg and T19}
+
+SQuad_nojpg <- rm_chr(SQuad_separated, c(".jpg", ".jpeg"))
+SQuad_site40 <- change_values(SQuad_nojpg, "Site", "siteT19", "site40")
+
+```
+
+Now lets look at the levels of some of my columns. 
+
+```{r view levels}
+
+unique(SQuad_site40$Field.Season)
+unique(SQuad_site40$Site)
+
+```
+
+
+Sometimes you may not want every year and every site of the data, so you may want to subset some of them out. For this example I don't want to subset any of these out, but I will demonstrate how to subset out based on values later, when we get to the large quadrats. 
+
+
+Now to prep for the addition of the large quadrats, I want to update the column names for this data frame. The column names are currently set as the tag shorthand used during the annotation process, but now I want them to better reflect the actual substrate names.
+
+```{r add labelset, message=FALSE, results='hide'}
+
+data("coral_labelset")
+head(coral_labelset)
+
+```
+
+```{r add labelset cleaner md output, message = FALSE, echo = FALSE, results='asis'}
+
+knitr::kable(head(coral_labelset), align = 'c')%>%
+  kable_styling("striped", full_width = F) %>% 
+  scroll_box(width = "100%")
+
+```
+
+This is what my label set document looks like, but you could also make this in R by joining a series of vectors. Now lets fix the column names.
+
+```{r change colnames}
+
+SQuad_colnames <- change_names(SQuad_site40, coral_labelset, "short_name", "full_name")
+names(SQuad_colnames)[1:16]
+
+```
+
+Much better.
+
+Now because these are smaller quadrats with fewer annotated points, before we add in the large quadrat data, lets deal with the substrate that was not able to be accurately identified. For these photo quadrats, the Shadow, Transect_hardware and Unclear tags need to be removed and not used when we calculate percent cover. If I was going to use this data to do a diversity analysis with hard corals, I would also include unknown_hard_coral, and Bleached_unknown_hard_coral to this list, but as this data will be used for soft coral analyses, we will leave it. 
+
+```{r usable points}
+
+SQuad_colnames <-  mutate_at(SQuad_colnames, c(4:134), as.numeric)
+
+SQuad_usable <- usable_obs(SQuad_colnames, c("Shadow", "Transect_hardware", "Unclear"), 
+                            max = TRUE, cutoff = 10)
+
+SQuad_removed <- usable_obs(SQuad_colnames, c("Shadow", "Transect_hardware", "Unclear"),
+                             max = TRUE, cutoff = 10, print_max = TRUE)
+
+```
+
+By identifying how many usable points there are in each quadrat, and removing any quadrats that had over 10% of the identified points unusable, we have removed 0 quadrats from analysis, which you could view with the `SQuad_removed` data frame but as we have no quadrats to removed, it will be an empty data frame.
+
+Now we can start working on the large quadrat data. 
+
+```{r large quad}
+
+data("softcoral_annotations")
+data("softcoral_LQuads")
+
+```
+
+
+I will be cropping this data as outlined in the cropping vignette, so check that out for the details, but before I crop it, I want to remove any unconfirmed quadrats just as we did for the small quads.
+
+```{r removing unconfirmed}
+
+LQuad_confirmed <- softcoral_LQuads %>% filter(Annotation.status == "Confirmed") 
+
+LQuad_sub <- softcoral_annotations %>% filter(Name %in% unique(LQuad_confirmed$Image.name))
+
+```
+
+Then we will crop the annotations data. 
+
+```{r large quad cropping}
+
+LQuad_cropped <- crop_area(data = LQuad_sub, row = "Row",
+                             column = "Column", id = "Name", dim = c(0.9, 0.6), 
+                             obs_range = c(36,64))
+
+```
+
+Now I will just format this to look like the small quad data so we can join the two.
+
+```{r large quad formatting}
+
+LQuad_wide <- LQuad_cropped %>% select(-c(obs, Row, Column)) %>% group_by(Name) %>% pivot_wider(names_from = Label, values_from = Label, values_fn = length, values_fill = 0)
+LQuad_wide <- as.data.frame(LQuad_wide)
+
+LQuad_separated <- separate(LQuad_wide, Name, sep="_", into=c("Field.Season", "Site","Quadrat"))
+
+LQuad_nojpg <- rm_chr(LQuad_separated, c(".jpg", ".jpeg"))
+
+LQuad_colnames <- change_names(LQuad_nojpg, coral_labelset, "short_name", "full_name")
+
+
+LQuad_colnames <-  mutate_at(LQuad_colnames, c(4:11), as.numeric)
+
+LQuad_usable <- usable_obs(LQuad_colnames, c("Shadow", "Transect_hardware", "Unclear"),
+                             max = TRUE, cutoff = 0.1*54)
+
+LQuad_removed <- usable_obs(LQuad_colnames, c("Shadow", "Transect_hardware", "Unclear"),
+                             max = TRUE, cutoff = 0.1*54, print_max = TRUE)
+
+```
+
+With the large quadrats, only 4 photos needed to be removed because they had too many unusable points. 
+
+Alright, now we can join these data frames together, and continue with one large data set. As both data sets used the same label set of names, This is easy with the bind_rows() function out of the `dplyr` package
+
+```{r bind quad dfs}
+
+AllQuads <- bind_rows(SQuad_usable, LQuad_usable) %>% select(-c(unusable))
+
+AllQuads[, 4:131][is.na(AllQuads[, 4:131])] <- 0
+
+```
+
+Now lets continue with the cleaning of these data.
+
+
+There are a few more things that need to be removed including MPQs (Mega photo quadrats), site8.5 and DEEP photo quadrats. 
+
+```{r remove DEEP, site 8.5 and MPQs}
+
+AllQuad_noDEEP_site8.5 <- keep_rm(AllQuads, c("DEEP", "site8.5"), select = "row", exact = FALSE, colname = "Site", keep = FALSE)
+
+AllQuad_noMPQ <- keep_rm(AllQuad_noDEEP_site8.5, c("MPQ"), select = "row", exact = FALSE, colname = "Quadrat", keep = FALSE)
+
+```
+
+
+Now we have removed unusable annotations, so lets rescale and recalculate cover with proportion cover. 
+
+```{r prop cover calc}
+
+AllQuad_cover <- cover_calc(AllQuad_noMPQ, names(AllQuad_noMPQ[,4:131]), prop = TRUE)
+
+```
+
+This data frame is now nicely formatted and could be used for many community based analyses. This might be a great stopping point for some analyses, but to further clean this up I am going to convert this into long format data.
+
+```{r long format}
+
+AllQuad_long <- AllQuad_cover %>% pivot_longer(cols = names(AllQuad_cover[,4:131]), names_to = "Tag_Name", values_to = "prop_cover")
+
+```
+ 
+One thing you may notice by looking at the `Tag_Name` column, is that these species names are not unique species, but there are duplicates of the same species, categorized into bleaching and non bleaching forms. For any kind of diversity analysis, this would inflate the number of different species, so it is important to combine different forms of the same species if diversity analyses are being done.
+
+For this clean up, we will walk through 3 ways of dealing with this based on what you want to accomplish.
+
+Option A. Categorizing rows.
+
+If you want to use your data in this long format, want to just categorize everything and you will use these various categories based on your different research questions, you could just add a bunch of category columns like so: 
+
+
+```{r A categorizing bleaching}
+
+A_AllQuad_Bleach <- categorize(AllQuad_long, "Tag_Name", values = c("Bleach"), name = "Bleached", binary = TRUE, exact = FALSE)
+
+```
+
+This categorizes each `Tag_Name` to whether it is a bleaching or nonbleaching tag.
+
+And you could also add other information in if you have it, like taxonomy.
+
+```{r A categorizing taxonomy}
+
+A_AllQuad_Taxa <- categorize(A_AllQuad_Bleach, "Tag_Name", values = coral_labelset$full_name, name = "Taxonomic_Name", binary = FALSE, categories = coral_labelset$taxonomic_name)
+
+```
+
+
+Option B. Categorizing rows and then combining.
+
+Now after you categorize your rows, perhaps you want to have all the cover values summed at a different level, like at the taxonomy level. To do this, the `summarise()` function from `dplyr` will work great. 
+
+
+```{r B summarising taxonomy, results='hide'}
+
+B_AllQuad_taxonomy <- A_AllQuad_Taxa %>% group_by(Field.Season, Site, Quadrat, Taxonomic_Name) %>% summarise(prop_cover = sum(prop_cover))
+
+```
+
+Option C. Wide format summing columns
+
+If you wanted to keep the data in a wide format, and sum columns based on taxonomy, to allow for community level analyses, you could also use the `sum_cols()` function. To do this, we first need a vector of what to change the names too, which can be done with a simple match, unless you have a vector with the new names already in the right order.
+
+```{r C summing columns}
+
+current_names <- colnames(AllQuad_cover[,4:131])
+new_names <- coral_labelset[match(current_names, coral_labelset$full_name),]$taxonomic_name
+
+AllQuad_wide_summed <- sum_cols(AllQuad_cover, from = current_names, to = new_names)
+
+```
+
+
+Whichever of the options you choose, you will be able to customize the data to your analysis needs. After that your data is nearly cleaned. Some other things you may want to add would be environmental data, or more taxonomic data. The `add_data()` function can help with adding multiple columns from a data set at a time. 
+
+```{r add more data}
+
+B_AllQuad_LH_FG <- add_data(B_AllQuad_taxonomy, coral_labelset, cols = c("functional_group", "life_history"), data_id = "Taxonomic_Name", add_id = "taxonomic_name", number = 5)
+
+data("environmental_data")
+
+B_AllQuad_enviro <- add_data(B_AllQuad_LH_FG, environmental_data, cols = c("HD_Cat", "HD_Cont", "NPP",  "WE", "Region", "WaveEnergy"), data_id = "Site", add_id = "Site", number = 4)
+
+```
+
+
+The final things I will add to this data to get it in shape for analysis is a final categorization of the study years based on the timing of the 2015/2016 El Niño, subset the species to only soft coral, and refactor the levels of some of the variables. 
+
+
+```{r final characterization and subset}
+
+B_AllQuad_timeblock <- categorize(B_AllQuad_enviro, column = "Field.Season", values = unique(B_AllQuad_enviro$Field.Season), name = "TimeBlock", binary = FALSE, exact = TRUE, categories = c(rep("Before", times = 8), rep("During", times = 3), rep("After", times = 4)))
+
+AllQuads_cropclean <- keep_rm(B_AllQuad_timeblock, values = "Soft_coral", select = "row", colname = "functional_group")
+
+AllQuads_cropclean$TimeBlock <- factor(AllQuads_cropclean$TimeBlock, levels = c("Before", "During", "After"))
+AllQuads_cropclean$Site <- factor(AllQuads_cropclean$Site, levels = paste("site", seq(1:40), sep = ""))
+AllQuads_cropclean$HD_Cat <- factor(AllQuads_cropclean$HD_Cat, levels = c("Very Low", "Low", "Medium", "High", "Very High"))
+
+```
+
+
+# Exploration
+
+This data has now been sufficiently cleaned and can be used for many different analyses. Often once data has been cleaned, the first step is to start exploring the data. One thing we can look at is the sample sizes, to see how many quadrats I have over the different sites and years.
+
+```{r sample sizes, results = 'hide'}
+
+sample_size(AllQuads_cropclean, dim_1 = "Site", dim_2 = "Field.Season", count = "Quadrat")
+
+```
+
+
+```{r sample sizes cleaner md output, message = FALSE, echo = FALSE, results='asis'}
+
+knitr::kable(sample_size(AllQuads_cropclean, dim_1 = "Site", dim_2 = "Field.Season", count = "Quadrat"), align = 'c')%>%
+  kable_styling("striped", full_width = F) %>% 
+  scroll_box(width = "100%")
+
+```
+
+
+Visualizing the data can be easy with a built in shiny app function. To see an example shiny app you can go [here](https://dominiquemaucieri.shinyapps.io/example/) but to visualize the data we have cleaned up here, we can run the following code:
+
+```{r shiny app, eval= FALSE}
+
+visualize_app(data = AllQuads_cropclean, xaxis = colnames(AllQuads_cropclean[,1:13]), yaxis = "prop_cover")
+
+```
+
+
+
+
+
+
+
+
+

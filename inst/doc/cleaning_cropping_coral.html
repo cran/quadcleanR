@@ -12,7 +12,7 @@
 
 
 
-<title>Simple Cleaning Quadrat Data</title>
+<title>Cleaning and Cropping Quadrat Data from CoralNet</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -253,23 +253,23 @@ border: 0;
 </style>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
@@ -287,55 +287,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -344,13 +343,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -554,28 +560,39 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Simple Cleaning Quadrat Data</h1>
+<h1 class="title toc-ignore">Cleaning and Cropping Quadrat Data from
+CoralNet</h1>
 
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>This vignette will walk you through cleaning up quadrat data to
-produce an easy to analyze data frame.</p>
+<p>This vignette will walk you through cleaning up quadrat data from <a href="https://coralnet.ucsd.edu/">CoralNet</a> to produce easy to
+analyze data frames.</p>
 <p>A little about the data:</p>
-<p>The data being cleaned will be the <code>softcoral_LQuads</code> and
+<p>The data being cleaned will be the <code>softcoral_SQuads</code> and
 this vignette will build off of the cropping vignette as well. Data was
-collected by the Baum Lab and Kiritimati Field Teams. The
-<code>softcoral_LQuads</code> data are from photo quadrats (1m by 1m)
-which were randomly annotated with 100 random points each. At each of
-these annotated points, the substrate was identified. Photo quadrats
-were collected on Kiritimati Island in the Republic of Kiribati and
-document coral cover over time and space. The annotations and output of
-the data frame were produced using <a href="https://coralnet.ucsd.edu/">CoralNet</a> and all annotations were
+collected by the Baum Lab and Kiritimati Field Teams and is the
+uncleaned version of data found in Maucieri and Baum 2021. Biological
+Conservation. The <code>softcoral_SQuads</code> data are from photo
+quadrats (0.9m by 0.6m) which were randomly annotated with 54 random
+points each, while the <code>softcoral_annotations</code> data are from
+photo quadrats (1m by 1m) which were randomly annotated with 100 random
+points each. At each of these annotated points, the substrate was
+identified. Photo quadrats were collected on Kiritimati Island in the
+Republic of Kiribati and document coral cover over time and space. The
+annotations and output of the data frame were produced using <a href="https://coralnet.ucsd.edu/">CoralNet</a> and all annotations were
 done manually, by trained researchers.</p>
-</div>
-<div id="cleaning-the-data" class="section level1">
-<h1>Cleaning the Data</h1>
+<p>So this vignette will follow the following steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Take the small quadrats (<code>softcoral_SQuads</code>) and show
+how to clean the data</p></li>
+<li><p>Then crop the large quadrat data
+(<code>softcoral_annotations</code>) and clean it too</p></li>
+<li><p>Join the two together to produce a large, easy to use data frame
+for future analyses, with some further cleaning of this joint data
+set.</p></li>
+</ol>
 <p>First lets load the package, the dplyr package, tidyr package and the
 data, plus a few extras used to create this vignette.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quadcleanR)</span>
@@ -585,9 +602,10 @@ data, plus a few extras used to create this vignette.</p>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;softcoral_LQuads&quot;</span>)</span></code></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;softcoral_SQuads&quot;</span>)</span></code></pre></div>
 <p>Now let me point out some unique aspects of this data:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(softcoral_LQuads)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(softcoral_SQuads)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1004,19 +1022,19 @@ Unidentified
 <tbody>
 <tr>
 <td style="text-align:left;">
-4101
+2517
 </td>
 <td style="text-align:center;">
-1368736
+1403339
 </td>
 <td style="text-align:center;">
-KI2019_site8_Q6.1.jpg
+KI2011_site9_Q5.jpg
 </td>
 <td style="text-align:center;">
 Confirmed
 </td>
 <td style="text-align:center;">
-100
+54
 </td>
 <td style="text-align:center;">
 0
@@ -1364,7 +1382,7 @@ Confirmed
 0
 </td>
 <td style="text-align:center;">
-6
+5.556
 </td>
 <td style="text-align:center;">
 0
@@ -1409,24 +1427,24 @@ Confirmed
 0
 </td>
 <td style="text-align:center;">
-94
+94.444
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-4102
+2518
 </td>
 <td style="text-align:center;">
-1368737
+1403340
 </td>
 <td style="text-align:center;">
-KI2019_site8_Q6.jpg
+KI2011_site9_Q6.jpg
 </td>
 <td style="text-align:center;">
 Confirmed
 </td>
 <td style="text-align:center;">
-100
+54
 </td>
 <td style="text-align:center;">
 0
@@ -1774,7 +1792,7 @@ Confirmed
 0
 </td>
 <td style="text-align:center;">
-0
+5.556
 </td>
 <td style="text-align:center;">
 0
@@ -1819,24 +1837,24 @@ Confirmed
 0
 </td>
 <td style="text-align:center;">
-100
+94.444
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-4103
+2519
 </td>
 <td style="text-align:center;">
-1368738
+1403341
 </td>
 <td style="text-align:center;">
-KI2019_site8_Q8.6.jpg
+KI2011_site9_Q7.jpg
 </td>
 <td style="text-align:center;">
 Confirmed
 </td>
 <td style="text-align:center;">
-100
+54
 </td>
 <td style="text-align:center;">
 0
@@ -2184,7 +2202,7 @@ Confirmed
 0
 </td>
 <td style="text-align:center;">
-2
+1.852
 </td>
 <td style="text-align:center;">
 0
@@ -2229,24 +2247,24 @@ Confirmed
 0
 </td>
 <td style="text-align:center;">
-98
+98.148
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-4104
+2520
 </td>
 <td style="text-align:center;">
-1368739
+1403342
 </td>
 <td style="text-align:center;">
-KI2019_site8_Q9.7.jpg
+KI2011_site9_Q8.jpg
 </td>
 <td style="text-align:center;">
 Confirmed
 </td>
 <td style="text-align:center;">
-100
+54
 </td>
 <td style="text-align:center;">
 0
@@ -2594,10 +2612,10 @@ Confirmed
 0
 </td>
 <td style="text-align:center;">
-1
+0.000
 </td>
 <td style="text-align:center;">
-1
+0
 </td>
 <td style="text-align:center;">
 0
@@ -2639,24 +2657,24 @@ Confirmed
 0
 </td>
 <td style="text-align:center;">
-98
+100.000
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-4105
+2521
 </td>
 <td style="text-align:center;">
-1368740
+1403343
 </td>
 <td style="text-align:center;">
-KI2019_site8_Q9.9.jpg
+KI2011_site9_Q9.jpg
 </td>
 <td style="text-align:center;">
 Confirmed
 </td>
 <td style="text-align:center;">
-100
+54
 </td>
 <td style="text-align:center;">
 0
@@ -3004,10 +3022,10 @@ Confirmed
 0
 </td>
 <td style="text-align:center;">
-0
+0.000
 </td>
 <td style="text-align:center;">
-1
+0
 </td>
 <td style="text-align:center;">
 0
@@ -3049,12 +3067,12 @@ Confirmed
 0
 </td>
 <td style="text-align:center;">
-99
+100.000
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-4106
+2522
 </td>
 <td style="text-align:center;">
 ALL IMAGES
@@ -3412,7 +3430,7 @@ NA
 0
 </td>
 <td style="text-align:center;">
-0
+0.000
 </td>
 <td style="text-align:center;">
 0
@@ -3457,7 +3475,7 @@ NA
 0
 </td>
 <td style="text-align:center;">
-100
+100.000
 </td>
 </tr>
 </tbody>
@@ -3479,36 +3497,36 @@ quadrats. The rest of the columns are the different coral and substrate
 IDs and how many points where annotated for each tag in each photo.</p>
 <p>So first, lets remove unneeded columns and make sure we are only
 working with “Confirmed” annotations.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>LQuad_confirmed <span class="ot">&lt;-</span> softcoral_LQuads <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Annotation.status <span class="sc">==</span> <span class="st">&quot;Confirmed&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Image.ID, Points, Annotation.status))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>SQuad_confirmed <span class="ot">&lt;-</span> softcoral_SQuads <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Annotation.status <span class="sc">==</span> <span class="st">&quot;Confirmed&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Image.ID, Points, Annotation.status))</span></code></pre></div>
 <p>Now we will separate the <code>Image.name</code> column into more
 descriptive columns.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>LQuad_separated <span class="ot">&lt;-</span> <span class="fu">separate</span>(LQuad_confirmed, Image.name, <span class="at">sep=</span><span class="st">&quot;_&quot;</span>, <span class="at">into=</span><span class="fu">c</span>(<span class="st">&quot;Field.Season&quot;</span>, <span class="st">&quot;Site&quot;</span>,<span class="st">&quot;Quadrat&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>SQuad_separated <span class="ot">&lt;-</span> <span class="fu">separate</span>(SQuad_confirmed, Image.name, <span class="at">sep=</span><span class="st">&quot;_&quot;</span>, <span class="at">into=</span><span class="fu">c</span>(<span class="st">&quot;Field.Season&quot;</span>, <span class="st">&quot;Site&quot;</span>,<span class="st">&quot;Quadrat&quot;</span>))</span></code></pre></div>
+<pre><code>## Warning: Expected 3 pieces. Additional pieces discarded in 3 rows [275, 446,
+## 477].</code></pre>
 <p>But if you notice, there are still .jpg and .jpeg in the quadrat
-names, so lets remove those, and change the naming of siteT19 to site40.
-At the same time I will remove site8.5, any DEEP sites and any MPQs
-(mega photo quadrat) from the data set.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>LQuad_nojpg <span class="ot">&lt;-</span> <span class="fu">rm_chr</span>(LQuad_separated, <span class="fu">c</span>(<span class="st">&quot;.jpg&quot;</span>, <span class="st">&quot;.jpeg&quot;</span>))</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>LQuad_site40 <span class="ot">&lt;-</span> <span class="fu">change_values</span>(LQuad_nojpg, <span class="st">&quot;Site&quot;</span>, <span class="st">&quot;siteT19&quot;</span>, <span class="st">&quot;site40&quot;</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>LQuad_noDEEP_site8<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">keep_rm</span>(LQuad_site40, <span class="fu">c</span>(<span class="st">&quot;DEEP&quot;</span>, <span class="st">&quot;site8.5&quot;</span>), <span class="at">select =</span> <span class="st">&quot;row&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>, <span class="at">colname =</span> <span class="st">&quot;Site&quot;</span>, <span class="at">keep =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>LQuad_noMPQ <span class="ot">&lt;-</span> <span class="fu">keep_rm</span>(LQuad_noDEEP_site8<span class="fl">.5</span>, <span class="fu">c</span>(<span class="st">&quot;MPQ&quot;</span>), <span class="at">select =</span> <span class="st">&quot;row&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>, <span class="at">colname =</span> <span class="st">&quot;Quadrat&quot;</span>, <span class="at">keep =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p>Now lets look at the levels of some of these columns.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(LQuad_noMPQ<span class="sc">$</span>Field.Season)</span></code></pre></div>
-<pre><code>##  [1] &quot;KI2013&quot;  &quot;KI2014&quot;  &quot;KI2015a&quot; &quot;KI2015b&quot; &quot;KI2015c&quot; &quot;KI2015d&quot; &quot;KI2016a&quot;
-##  [8] &quot;KI2016b&quot; &quot;KI2017&quot;  &quot;KI2018&quot;  &quot;KI2019&quot;</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(LQuad_noMPQ<span class="sc">$</span>Site)</span></code></pre></div>
-<pre><code>##  [1] &quot;site14&quot; &quot;site15&quot; &quot;site19&quot; &quot;site1&quot;  &quot;site20&quot; &quot;site22&quot; &quot;site23&quot; &quot;site24&quot;
-##  [9] &quot;site25&quot; &quot;site26&quot; &quot;site27&quot; &quot;site30&quot; &quot;site32&quot; &quot;site34&quot; &quot;site35&quot; &quot;site3&quot; 
-## [17] &quot;site6&quot;  &quot;site8&quot;  &quot;site9&quot;  &quot;site38&quot; &quot;site5&quot;  &quot;site10&quot; &quot;site12&quot; &quot;site33&quot;
-## [25] &quot;site37&quot; &quot;site40&quot; &quot;site13&quot; &quot;site18&quot; &quot;site31&quot; &quot;site36&quot; &quot;site7&quot;</code></pre>
-<p>Next lets update the column names for this data frame. The column
-names are currently set as the tag shorthand used during the annotation
-process, but now I want them to better reflect the actual substrate
-names.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;coral_labelset&quot;</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coral_labelset)</span></code></pre></div>
+names, so lets remove those, and change the naming of siteT19 to
+site40.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>SQuad_nojpg <span class="ot">&lt;-</span> <span class="fu">rm_chr</span>(SQuad_separated, <span class="fu">c</span>(<span class="st">&quot;.jpg&quot;</span>, <span class="st">&quot;.jpeg&quot;</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>SQuad_site40 <span class="ot">&lt;-</span> <span class="fu">change_values</span>(SQuad_nojpg, <span class="st">&quot;Site&quot;</span>, <span class="st">&quot;siteT19&quot;</span>, <span class="st">&quot;site40&quot;</span>)</span></code></pre></div>
+<p>Now lets look at the levels of some of my columns.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(SQuad_site40<span class="sc">$</span>Field.Season)</span></code></pre></div>
+<pre><code>## [1] &quot;KI2007&quot; &quot;KI2009&quot; &quot;KI2010&quot; &quot;KI2011&quot;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(SQuad_site40<span class="sc">$</span>Site)</span></code></pre></div>
+<pre><code>##  [1] &quot;site10&quot; &quot;site11&quot; &quot;site12&quot; &quot;site13&quot; &quot;site14&quot; &quot;site15&quot; &quot;site16&quot; &quot;site17&quot;
+##  [9] &quot;site18&quot; &quot;site19&quot; &quot;site1&quot;  &quot;site20&quot; &quot;site21&quot; &quot;site22&quot; &quot;site23&quot; &quot;site24&quot;
+## [17] &quot;site25&quot; &quot;site26&quot; &quot;site27&quot; &quot;site28&quot; &quot;site29&quot; &quot;site2&quot;  &quot;site30&quot; &quot;site31&quot;
+## [25] &quot;site32&quot; &quot;site33&quot; &quot;site34&quot; &quot;site35&quot; &quot;site36&quot; &quot;site37&quot; &quot;site3&quot;  &quot;site4&quot; 
+## [33] &quot;site5&quot;  &quot;site6&quot;  &quot;site7&quot;  &quot;site8&quot;  &quot;site9&quot;  &quot;site38&quot; &quot;site39&quot; &quot;site40&quot;</code></pre>
+<p>Sometimes you may not want every year and every site of the data, so
+you may want to subset some of them out. For this example I don’t want
+to subset any of these out, but I will demonstrate how to subset out
+based on values later, when we get to the large quadrats.</p>
+<p>Now to prep for the addition of the large quadrats, I want to update
+the column names for this data frame. The column names are currently set
+as the tag shorthand used during the annotation process, but now I want
+them to better reflect the actual substrate names.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;coral_labelset&quot;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coral_labelset)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -3636,11 +3654,11 @@ Not_Coral
 </tbody>
 </table>
 </div>
-<p>This is what the label set document looks like, but you could also
+<p>This is what my label set document looks like, but you could also
 make this in R by joining a series of vectors. Now lets fix the column
 names.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>LQuad_colnames <span class="ot">&lt;-</span> <span class="fu">change_names</span>(LQuad_noMPQ, coral_labelset, <span class="st">&quot;short_name&quot;</span>, <span class="st">&quot;full_name&quot;</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(LQuad_colnames)[<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>SQuad_colnames <span class="ot">&lt;-</span> <span class="fu">change_names</span>(SQuad_site40, coral_labelset, <span class="st">&quot;short_name&quot;</span>, <span class="st">&quot;full_name&quot;</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(SQuad_colnames)[<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>]</span></code></pre></div>
 <pre><code>##  [1] &quot;Field.Season&quot;                  &quot;Site&quot;                         
 ##  [3] &quot;Quadrat&quot;                       &quot;Acropora_corymbose&quot;           
 ##  [5] &quot;Acropora_digitate&quot;             &quot;Acropora_arborescent&quot;         
@@ -3650,33 +3668,81 @@ names.</p>
 ## [13] &quot;Bleached_Acropora_tabulate&quot;    &quot;Bleached_Coscinarea&quot;          
 ## [15] &quot;Bleached_Echinophyllia&quot;        &quot;Bleached_Favites_halicora&quot;</code></pre>
 <p>Much better.</p>
-<p>Now for these photo quadrats, the Shadow, Transect_hardware and
-Unclear tags need to be removed and not used when we calculate percent
-cover. If I was going to use this data to do a diversity analysis with
-hard corals, I would also include unknown_hard_coral, and
-Bleached_unknown_hard_coral to this list, but we are going to clean this
-data for soft coral analyses, so we will leave them in.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>LQuad_colnames <span class="ot">&lt;-</span>  <span class="fu">mutate_at</span>(LQuad_colnames, <span class="fu">c</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">134</span>), as.numeric)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>LQuad_usable <span class="ot">&lt;-</span> <span class="fu">usable_obs</span>(LQuad_colnames, <span class="fu">c</span>(<span class="st">&quot;Shadow&quot;</span>, <span class="st">&quot;Transect_hardware&quot;</span>, <span class="st">&quot;Unclear&quot;</span>), </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">max =</span> <span class="cn">TRUE</span>, <span class="at">cutoff =</span> <span class="dv">10</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>LQuad_removed <span class="ot">&lt;-</span> <span class="fu">usable_obs</span>(LQuad_colnames, <span class="fu">c</span>(<span class="st">&quot;Shadow&quot;</span>, <span class="st">&quot;Transect_hardware&quot;</span>, <span class="st">&quot;Unclear&quot;</span>),</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                             <span class="at">max =</span> <span class="cn">TRUE</span>, <span class="at">cutoff =</span> <span class="dv">10</span>, <span class="at">print_max =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Now because these are smaller quadrats with fewer annotated points,
+before we add in the large quadrat data, lets deal with the substrate
+that was not able to be accurately identified. For these photo quadrats,
+the Shadow, Transect_hardware and Unclear tags need to be removed and
+not used when we calculate percent cover. If I was going to use this
+data to do a diversity analysis with hard corals, I would also include
+unknown_hard_coral, and Bleached_unknown_hard_coral to this list, but as
+this data will be used for soft coral analyses, we will leave it.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>SQuad_colnames <span class="ot">&lt;-</span>  <span class="fu">mutate_at</span>(SQuad_colnames, <span class="fu">c</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">134</span>), as.numeric)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>SQuad_usable <span class="ot">&lt;-</span> <span class="fu">usable_obs</span>(SQuad_colnames, <span class="fu">c</span>(<span class="st">&quot;Shadow&quot;</span>, <span class="st">&quot;Transect_hardware&quot;</span>, <span class="st">&quot;Unclear&quot;</span>), </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">max =</span> <span class="cn">TRUE</span>, <span class="at">cutoff =</span> <span class="dv">10</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>SQuad_removed <span class="ot">&lt;-</span> <span class="fu">usable_obs</span>(SQuad_colnames, <span class="fu">c</span>(<span class="st">&quot;Shadow&quot;</span>, <span class="st">&quot;Transect_hardware&quot;</span>, <span class="st">&quot;Unclear&quot;</span>),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>                             <span class="at">max =</span> <span class="cn">TRUE</span>, <span class="at">cutoff =</span> <span class="dv">10</span>, <span class="at">above_cutoff =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>By identifying how many usable points there are in each quadrat, and
 removing any quadrats that had over 10% of the identified points
 unusable, we have removed 0 quadrats from analysis, which you could view
-with the <code>LQuad_removed</code> data frame but as we have no
+with the <code>SQuad_removed</code> data frame but as we have no
 quadrats to removed, it will be an empty data frame.</p>
-<p>Now we know how many usable annotations for each tag there are in
-each photo quadrat. Lets convert this into a proportion cover now. This
-may take a minute as there are many rows.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>LQuad_cover <span class="ot">&lt;-</span> <span class="fu">cover_calc</span>(LQuad_usable, <span class="fu">names</span>(LQuad_usable[,<span class="dv">4</span><span class="sc">:</span><span class="dv">131</span>]), <span class="at">prop =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<p>Now we can start working on the large quadrat data.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;softcoral_annotations&quot;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;softcoral_LQuads&quot;</span>)</span></code></pre></div>
+<p>I will be cropping this data as outlined in the cropping vignette, so
+check that out for the details, but before I crop it, I want to remove
+any unconfirmed quadrats just as we did for the small quads.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>LQuad_confirmed <span class="ot">&lt;-</span> softcoral_LQuads <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Annotation.status <span class="sc">==</span> <span class="st">&quot;Confirmed&quot;</span>) </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>LQuad_sub <span class="ot">&lt;-</span> softcoral_annotations <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Name <span class="sc">%in%</span> <span class="fu">unique</span>(LQuad_confirmed<span class="sc">$</span>Image.name))</span></code></pre></div>
+<p>Then we will crop the annotations data.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>LQuad_cropped <span class="ot">&lt;-</span> <span class="fu">crop_area</span>(<span class="at">data =</span> LQuad_sub, <span class="at">row =</span> <span class="st">&quot;Row&quot;</span>,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                             <span class="at">column =</span> <span class="st">&quot;Column&quot;</span>, <span class="at">id =</span> <span class="st">&quot;Name&quot;</span>, <span class="at">dim =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.6</span>), </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">obs_range =</span> <span class="fu">c</span>(<span class="dv">36</span>,<span class="dv">64</span>))</span></code></pre></div>
+<p>Now I will just format this to look like the small quad data so we
+can join the two.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>LQuad_wide <span class="ot">&lt;-</span> LQuad_cropped <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(obs, Row, Column)) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Name) <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Label, <span class="at">values_from =</span> Label, <span class="at">values_fn =</span> length, <span class="at">values_fill =</span> <span class="dv">0</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>LQuad_wide <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(LQuad_wide)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>LQuad_separated <span class="ot">&lt;-</span> <span class="fu">separate</span>(LQuad_wide, Name, <span class="at">sep=</span><span class="st">&quot;_&quot;</span>, <span class="at">into=</span><span class="fu">c</span>(<span class="st">&quot;Field.Season&quot;</span>, <span class="st">&quot;Site&quot;</span>,<span class="st">&quot;Quadrat&quot;</span>))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>LQuad_nojpg <span class="ot">&lt;-</span> <span class="fu">rm_chr</span>(LQuad_separated, <span class="fu">c</span>(<span class="st">&quot;.jpg&quot;</span>, <span class="st">&quot;.jpeg&quot;</span>))</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>LQuad_colnames <span class="ot">&lt;-</span> <span class="fu">change_names</span>(LQuad_nojpg, coral_labelset, <span class="st">&quot;short_name&quot;</span>, <span class="st">&quot;full_name&quot;</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>LQuad_colnames <span class="ot">&lt;-</span>  <span class="fu">mutate_at</span>(LQuad_colnames, <span class="fu">c</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">11</span>), as.numeric)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>LQuad_usable <span class="ot">&lt;-</span> <span class="fu">usable_obs</span>(LQuad_colnames, <span class="fu">c</span>(<span class="st">&quot;Shadow&quot;</span>, <span class="st">&quot;Transect_hardware&quot;</span>, <span class="st">&quot;Unclear&quot;</span>),</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>                             <span class="at">max =</span> <span class="cn">TRUE</span>, <span class="at">cutoff =</span> <span class="fl">0.1</span><span class="sc">*</span><span class="dv">54</span>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>LQuad_removed <span class="ot">&lt;-</span> <span class="fu">usable_obs</span>(LQuad_colnames, <span class="fu">c</span>(<span class="st">&quot;Shadow&quot;</span>, <span class="st">&quot;Transect_hardware&quot;</span>, <span class="st">&quot;Unclear&quot;</span>),</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>                             <span class="at">max =</span> <span class="cn">TRUE</span>, <span class="at">cutoff =</span> <span class="fl">0.1</span><span class="sc">*</span><span class="dv">54</span>, <span class="at">above_cutoff =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>With the large quadrats, only 4 photos needed to be removed because
+they had too many unusable points.</p>
+<p>Alright, now we can join these data frames together, and continue
+with one large data set. As both data sets used the same label set of
+names, This is easy with the bind_rows() function out of the
+<code>dplyr</code> package</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>AllQuads <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(SQuad_usable, LQuad_usable) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(unusable))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>AllQuads[, <span class="dv">4</span><span class="sc">:</span><span class="dv">131</span>][<span class="fu">is.na</span>(AllQuads[, <span class="dv">4</span><span class="sc">:</span><span class="dv">131</span>])] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code></pre></div>
+<p>Now lets continue with the cleaning of these data.</p>
+<p>There are a few more things that need to be removed including MPQs
+(Mega photo quadrats), site8.5 and DEEP photo quadrats.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>AllQuad_noDEEP_site8<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">keep_rm</span>(AllQuads, <span class="fu">c</span>(<span class="st">&quot;DEEP&quot;</span>, <span class="st">&quot;site8.5&quot;</span>), <span class="at">select =</span> <span class="st">&quot;row&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>, <span class="at">colname =</span> <span class="st">&quot;Site&quot;</span>, <span class="at">keep =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>AllQuad_noMPQ <span class="ot">&lt;-</span> <span class="fu">keep_rm</span>(AllQuad_noDEEP_site8<span class="fl">.5</span>, <span class="fu">c</span>(<span class="st">&quot;MPQ&quot;</span>), <span class="at">select =</span> <span class="st">&quot;row&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>, <span class="at">colname =</span> <span class="st">&quot;Quadrat&quot;</span>, <span class="at">keep =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>Now we have removed unusable annotations, so lets rescale and
+recalculate cover with proportion cover.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>AllQuad_cover <span class="ot">&lt;-</span> <span class="fu">cover_calc</span>(AllQuad_noMPQ, <span class="fu">names</span>(AllQuad_noMPQ[,<span class="dv">4</span><span class="sc">:</span><span class="dv">131</span>]), <span class="at">prop =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>This data frame is now nicely formatted and could be used for many
 community based analyses. This might be a great stopping point for some
 analyses, but to further clean this up I am going to convert this into
 long format data.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>LQuad_long <span class="ot">&lt;-</span> LQuad_cover <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(unusable)) <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">names</span>(LQuad_cover[,<span class="dv">4</span><span class="sc">:</span><span class="dv">131</span>]), <span class="at">names_to =</span> <span class="st">&quot;Tag_Name&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;prop_cover&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>AllQuad_long <span class="ot">&lt;-</span> AllQuad_cover <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">names</span>(AllQuad_cover[,<span class="dv">4</span><span class="sc">:</span><span class="dv">131</span>]), <span class="at">names_to =</span> <span class="st">&quot;Tag_Name&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;prop_cover&quot;</span>)</span></code></pre></div>
 <p>One thing you may notice by looking at the <code>Tag_Name</code>
 column, is that these species names are not unique species, but there
 are duplicates of the same species, categorized into bleaching and non
@@ -3690,18 +3756,18 @@ based on what you want to accomplish.</p>
 categorize everything and you will use these various categories based on
 your different research questions, you could just add a bunch of
 category columns like so:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>A_LQuad_Bleach <span class="ot">&lt;-</span> <span class="fu">categorize</span>(LQuad_long, <span class="st">&quot;Tag_Name&quot;</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Bleach&quot;</span>), <span class="at">name =</span> <span class="st">&quot;Bleached&quot;</span>, <span class="at">binary =</span> <span class="cn">TRUE</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>A_AllQuad_Bleach <span class="ot">&lt;-</span> <span class="fu">categorize</span>(AllQuad_long, <span class="st">&quot;Tag_Name&quot;</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Bleach&quot;</span>), <span class="at">name =</span> <span class="st">&quot;Bleached&quot;</span>, <span class="at">binary =</span> <span class="cn">TRUE</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p>This categorizes each <code>Tag_Name</code> to whether it is a
 bleaching or nonbleaching tag.</p>
 <p>And you could also add other information in if you have it, like
 taxonomy.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>A_LQuad_Taxa <span class="ot">&lt;-</span> <span class="fu">categorize</span>(A_LQuad_Bleach, <span class="st">&quot;Tag_Name&quot;</span>, <span class="at">values =</span> coral_labelset<span class="sc">$</span>full_name, <span class="at">name =</span> <span class="st">&quot;Taxonomic_Name&quot;</span>, <span class="at">binary =</span> <span class="cn">FALSE</span>, <span class="at">categories =</span> coral_labelset<span class="sc">$</span>taxonomic_name)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>A_AllQuad_Taxa <span class="ot">&lt;-</span> <span class="fu">categorize</span>(A_AllQuad_Bleach, <span class="st">&quot;Tag_Name&quot;</span>, <span class="at">values =</span> coral_labelset<span class="sc">$</span>full_name, <span class="at">name =</span> <span class="st">&quot;Taxonomic_Name&quot;</span>, <span class="at">binary =</span> <span class="cn">FALSE</span>, <span class="at">categories =</span> coral_labelset<span class="sc">$</span>taxonomic_name)</span></code></pre></div>
 <p>Option B. Categorizing rows and then combining.</p>
 <p>Now after you categorize your rows, perhaps you want to have all the
 cover values summed at a different level, like at the taxonomy level. To
 do this, the <code>summarise()</code> function from <code>dplyr</code>
 will work great.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>B_LQuad_taxonomy <span class="ot">&lt;-</span> A_LQuad_Taxa <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Field.Season, Site, Quadrat, Taxonomic_Name) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">prop_cover =</span> <span class="fu">sum</span>(prop_cover))</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>B_AllQuad_taxonomy <span class="ot">&lt;-</span> A_AllQuad_Taxa <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Field.Season, Site, Quadrat, Taxonomic_Name) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">prop_cover =</span> <span class="fu">sum</span>(prop_cover))</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;Field.Season&#39;, &#39;Site&#39;, &#39;Quadrat&#39;. You can
 ## override using the `.groups` argument.</code></pre>
 <p>Option C. Wide format summing columns</p>
@@ -3711,27 +3777,31 @@ use the <code>sum_cols()</code> function. To do this, we first need a
 vector of what to change the names too, which can be done with a simple
 match, unless you have a vector with the new names already in the right
 order.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>current_names <span class="ot">&lt;-</span> <span class="fu">colnames</span>(LQuad_cover[,<span class="dv">4</span><span class="sc">:</span><span class="dv">131</span>])</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>new_names <span class="ot">&lt;-</span> coral_labelset[<span class="fu">match</span>(current_names, coral_labelset<span class="sc">$</span>full_name),]<span class="sc">$</span>taxonomic_name</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>LQuad_wide_summed <span class="ot">&lt;-</span> <span class="fu">sum_cols</span>(LQuad_cover, <span class="at">from =</span> current_names, <span class="at">to =</span> new_names)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>current_names <span class="ot">&lt;-</span> <span class="fu">colnames</span>(AllQuad_cover[,<span class="dv">4</span><span class="sc">:</span><span class="dv">131</span>])</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>new_names <span class="ot">&lt;-</span> coral_labelset[<span class="fu">match</span>(current_names, coral_labelset<span class="sc">$</span>full_name),]<span class="sc">$</span>taxonomic_name</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>AllQuad_wide_summed <span class="ot">&lt;-</span> <span class="fu">sum_cols</span>(AllQuad_cover, <span class="at">from =</span> current_names, <span class="at">to =</span> new_names)</span></code></pre></div>
 <p>Whichever of the options you choose, you will be able to customize
 the data to your analysis needs. After that your data is nearly cleaned.
 Some other things you may want to add would be environmental data, or
 more taxonomic data. The <code>add_data()</code> function can help with
 adding multiple columns from a data set at a time.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>B_LQuad_LH_FG <span class="ot">&lt;-</span> <span class="fu">add_data</span>(B_LQuad_taxonomy, coral_labelset, <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;functional_group&quot;</span>, <span class="st">&quot;life_history&quot;</span>), <span class="at">data_id =</span> <span class="st">&quot;Taxonomic_Name&quot;</span>, <span class="at">add_id =</span> <span class="st">&quot;taxonomic_name&quot;</span>, <span class="at">number =</span> <span class="dv">5</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;environmental_data&quot;</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>B_LQuad_enviro <span class="ot">&lt;-</span> <span class="fu">add_data</span>(B_LQuad_LH_FG, environmental_data, <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;HD_Cat&quot;</span>, <span class="st">&quot;HD_Cont&quot;</span>, <span class="st">&quot;NPP&quot;</span>,  <span class="st">&quot;WE&quot;</span>, <span class="st">&quot;Region&quot;</span>, <span class="st">&quot;WaveEnergy&quot;</span>), <span class="at">data_id =</span> <span class="st">&quot;Site&quot;</span>, <span class="at">add_id =</span> <span class="st">&quot;Site&quot;</span>, <span class="at">number =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>B_AllQuad_LH_FG <span class="ot">&lt;-</span> <span class="fu">add_data</span>(B_AllQuad_taxonomy, coral_labelset, <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;functional_group&quot;</span>, <span class="st">&quot;life_history&quot;</span>), <span class="at">data_id =</span> <span class="st">&quot;Taxonomic_Name&quot;</span>, <span class="at">add_id =</span> <span class="st">&quot;taxonomic_name&quot;</span>, <span class="at">number =</span> <span class="dv">5</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;environmental_data&quot;</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>B_AllQuad_enviro <span class="ot">&lt;-</span> <span class="fu">add_data</span>(B_AllQuad_LH_FG, environmental_data, <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;HD_Cat&quot;</span>, <span class="st">&quot;HD_Cont&quot;</span>, <span class="st">&quot;NPP&quot;</span>,  <span class="st">&quot;WE&quot;</span>, <span class="st">&quot;Region&quot;</span>, <span class="st">&quot;WaveEnergy&quot;</span>), <span class="at">data_id =</span> <span class="st">&quot;Site&quot;</span>, <span class="at">add_id =</span> <span class="st">&quot;Site&quot;</span>, <span class="at">number =</span> <span class="dv">4</span>)</span></code></pre></div>
 <p>The final things I will add to this data to get it in shape for
 analysis is a final categorization of the study years based on the
-timing of the 2015/2016 El Niño and subset the species to only soft
-coral.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>B_LQuad_timeblock <span class="ot">&lt;-</span> <span class="fu">categorize</span>(B_LQuad_enviro, <span class="at">column =</span> <span class="st">&quot;Field.Season&quot;</span>, <span class="at">values =</span> <span class="fu">unique</span>(B_LQuad_enviro<span class="sc">$</span>Field.Season), <span class="at">name =</span> <span class="st">&quot;TimeBlock&quot;</span>, <span class="at">binary =</span> <span class="cn">FALSE</span>, <span class="at">exact =</span> <span class="cn">TRUE</span>, <span class="at">categories =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;Before&quot;</span>, <span class="at">times =</span> <span class="dv">4</span>), <span class="fu">rep</span>(<span class="st">&quot;During&quot;</span>, <span class="at">times =</span> <span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&quot;After&quot;</span>, <span class="at">times =</span> <span class="dv">4</span>)))</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>simple_cleaned <span class="ot">&lt;-</span> <span class="fu">keep_rm</span>(B_LQuad_timeblock, <span class="at">values =</span> <span class="st">&quot;Soft_coral&quot;</span>, <span class="at">select =</span> <span class="st">&quot;row&quot;</span>, <span class="at">colname =</span> <span class="st">&quot;functional_group&quot;</span>)</span></code></pre></div>
+timing of the 2015/2016 El Niño, subset the species to only soft coral,
+and refactor the levels of some of the variables.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>B_AllQuad_timeblock <span class="ot">&lt;-</span> <span class="fu">categorize</span>(B_AllQuad_enviro, <span class="at">column =</span> <span class="st">&quot;Field.Season&quot;</span>, <span class="at">values =</span> <span class="fu">unique</span>(B_AllQuad_enviro<span class="sc">$</span>Field.Season), <span class="at">name =</span> <span class="st">&quot;TimeBlock&quot;</span>, <span class="at">binary =</span> <span class="cn">FALSE</span>, <span class="at">exact =</span> <span class="cn">TRUE</span>, <span class="at">categories =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;Before&quot;</span>, <span class="at">times =</span> <span class="dv">8</span>), <span class="fu">rep</span>(<span class="st">&quot;During&quot;</span>, <span class="at">times =</span> <span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&quot;After&quot;</span>, <span class="at">times =</span> <span class="dv">4</span>)))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>AllQuads_cropclean <span class="ot">&lt;-</span> <span class="fu">keep_rm</span>(B_AllQuad_timeblock, <span class="at">values =</span> <span class="st">&quot;Soft_coral&quot;</span>, <span class="at">select =</span> <span class="st">&quot;row&quot;</span>, <span class="at">colname =</span> <span class="st">&quot;functional_group&quot;</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>AllQuads_cropclean<span class="sc">$</span>TimeBlock <span class="ot">&lt;-</span> <span class="fu">factor</span>(AllQuads_cropclean<span class="sc">$</span>TimeBlock, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Before&quot;</span>, <span class="st">&quot;During&quot;</span>, <span class="st">&quot;After&quot;</span>))</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>AllQuads_cropclean<span class="sc">$</span>Site <span class="ot">&lt;-</span> <span class="fu">factor</span>(AllQuads_cropclean<span class="sc">$</span>Site, <span class="at">levels =</span> <span class="fu">paste</span>(<span class="st">&quot;site&quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">40</span>), <span class="at">sep =</span> <span class="st">&quot;&quot;</span>))</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>AllQuads_cropclean<span class="sc">$</span>HD_Cat <span class="ot">&lt;-</span> <span class="fu">factor</span>(AllQuads_cropclean<span class="sc">$</span>HD_Cat, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Very Low&quot;</span>, <span class="st">&quot;Low&quot;</span>, <span class="st">&quot;Medium&quot;</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Very High&quot;</span>))</span></code></pre></div>
 </div>
 <div id="exploration" class="section level1">
 <h1>Exploration</h1>
@@ -3740,12 +3810,24 @@ different analyses. Often once data has been cleaned, the first step is
 to start exploring the data. One thing we can look at is the sample
 sizes, to see how many quadrats I have over the different sites and
 years.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_size</span>(simple_cleaned, <span class="at">dim_1 =</span> <span class="st">&quot;Site&quot;</span>, <span class="at">dim_2 =</span> <span class="st">&quot;Field.Season&quot;</span>, <span class="at">count =</span> <span class="st">&quot;Quadrat&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_size</span>(AllQuads_cropclean, <span class="at">dim_1 =</span> <span class="st">&quot;Site&quot;</span>, <span class="at">dim_2 =</span> <span class="st">&quot;Field.Season&quot;</span>, <span class="at">count =</span> <span class="st">&quot;Quadrat&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+KI2007
+</th>
+<th style="text-align:center;">
+KI2009
+</th>
+<th style="text-align:center;">
+KI2010
+</th>
+<th style="text-align:center;">
+KI2011
 </th>
 <th style="text-align:center;">
 KI2013
@@ -3788,6 +3870,18 @@ KI2019
 site1
 </td>
 <td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
 28
 </td>
 <td style="text-align:center;">
@@ -3823,7 +3917,219 @@ site1
 </tr>
 <tr>
 <td style="text-align:left;">
+site10
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+32
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+site11
+</td>
+<td style="text-align:center;">
+29
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+site12
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+31
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+site13
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 site14
+</td>
+<td style="text-align:center;">
+29
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+25
 </td>
 <td style="text-align:center;">
 13
@@ -3864,6 +4170,18 @@ site14
 site15
 </td>
 <td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+26
+</td>
+<td style="text-align:center;">
+26
+</td>
+<td style="text-align:center;">
 24
 </td>
 <td style="text-align:center;">
@@ -3899,7 +4217,169 @@ site15
 </tr>
 <tr>
 <td style="text-align:left;">
+site16
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+26
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+site17
+</td>
+<td style="text-align:center;">
+29
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+19
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+site18
+</td>
+<td style="text-align:center;">
+29
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+24
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 site19
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+26
+</td>
+<td style="text-align:center;">
+21
 </td>
 <td style="text-align:center;">
 21
@@ -3937,7 +4417,69 @@ site19
 </tr>
 <tr>
 <td style="text-align:left;">
+site2
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+29
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 site20
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
 </td>
 <td style="text-align:center;">
 31
@@ -3975,7 +4517,69 @@ site20
 </tr>
 <tr>
 <td style="text-align:left;">
+site21
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 site22
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
 </td>
 <td style="text-align:center;">
 19
@@ -4016,6 +4620,18 @@ site22
 site23
 </td>
 <td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
 25
 </td>
 <td style="text-align:center;">
@@ -4054,7 +4670,19 @@ site23
 site24
 </td>
 <td style="text-align:center;">
-32
+30
+</td>
+<td style="text-align:center;">
+35
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+31
 </td>
 <td style="text-align:center;">
 0
@@ -4090,6 +4718,18 @@ site24
 <tr>
 <td style="text-align:left;">
 site25
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+24
 </td>
 <td style="text-align:center;">
 26
@@ -4133,6 +4773,18 @@ site26
 30
 </td>
 <td style="text-align:center;">
+27
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
@@ -4166,6 +4818,18 @@ site26
 <tr>
 <td style="text-align:left;">
 site27
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+26
+</td>
+<td style="text-align:center;">
+18
+</td>
+<td style="text-align:center;">
+24
 </td>
 <td style="text-align:center;">
 28
@@ -4203,7 +4867,119 @@ site27
 </tr>
 <tr>
 <td style="text-align:left;">
+site28
+</td>
+<td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+site29
+</td>
+<td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 site3
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+25
 </td>
 <td style="text-align:center;">
 28
@@ -4244,6 +5020,18 @@ site3
 site30
 </td>
 <td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
 29
 </td>
 <td style="text-align:center;">
@@ -4279,7 +5067,69 @@ site30
 </tr>
 <tr>
 <td style="text-align:left;">
+site31
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+27
+</td>
+<td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+26
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 site32
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+18
+</td>
+<td style="text-align:center;">
+18
+</td>
+<td style="text-align:center;">
+24
 </td>
 <td style="text-align:center;">
 30
@@ -4317,7 +5167,69 @@ site32
 </tr>
 <tr>
 <td style="text-align:left;">
+site33
+</td>
+<td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+27
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+27
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+31
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 site34
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+27
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+19
 </td>
 <td style="text-align:center;">
 28
@@ -4358,6 +5270,18 @@ site34
 site35
 </td>
 <td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+44
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
 26
 </td>
 <td style="text-align:center;">
@@ -4393,7 +5317,219 @@ site35
 </tr>
 <tr>
 <td style="text-align:left;">
+site36
+</td>
+<td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+27
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+site37
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+27
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+site4
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+site5
+</td>
+<td style="text-align:center;">
+29
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+29
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+26
+</td>
+<td style="text-align:center;">
+29
+</td>
+<td style="text-align:center;">
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 site6
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+19
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+27
 </td>
 <td style="text-align:center;">
 29
@@ -4427,6 +5563,56 @@ site6
 </td>
 <td style="text-align:center;">
 30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+site7
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
 </td>
 </tr>
 <tr>
@@ -4434,6 +5620,18 @@ site6
 site8
 </td>
 <td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
 29
 </td>
 <td style="text-align:center;">
@@ -4464,7 +5662,7 @@ site8
 30
 </td>
 <td style="text-align:center;">
-30
+29
 </td>
 </tr>
 <tr>
@@ -4472,7 +5670,19 @@ site8
 site9
 </td>
 <td style="text-align:center;">
-26
+35
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+27
+</td>
+<td style="text-align:center;">
+25
 </td>
 <td style="text-align:center;">
 0
@@ -4513,6 +5723,18 @@ site38
 0
 </td>
 <td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
 31
 </td>
 <td style="text-align:center;">
@@ -4545,98 +5767,7 @@ site38
 </tr>
 <tr>
 <td style="text-align:left;">
-site5
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-29
-</td>
-<td style="text-align:center;">
-30
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-30
-</td>
-<td style="text-align:center;">
-30
-</td>
-<td style="text-align:center;">
-27
-</td>
-<td style="text-align:center;">
-29
-</td>
-<td style="text-align:center;">
-30
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-site10
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-30
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-25
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-site12
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
+site39
 </td>
 <td style="text-align:center;">
 0
@@ -4645,21 +5776,16 @@ site12
 22
 </td>
 <td style="text-align:center;">
-30
-</td>
-<td style="text-align:center;">
-31
+0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-30
+0
 </td>
-</tr>
-<tr>
-<td style="text-align:left;">
-site33
+<td style="text-align:center;">
+0
 </td>
 <td style="text-align:center;">
 0
@@ -4680,26 +5806,6 @@ site33
 0
 </td>
 <td style="text-align:center;">
-30
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-31
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-site37
-</td>
-<td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
@@ -4707,30 +5813,6 @@ site37
 </td>
 <td style="text-align:center;">
 0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-30
-</td>
-<td style="text-align:center;">
-30
-</td>
-<td style="text-align:center;">
-30
-</td>
-<td style="text-align:center;">
-30
-</td>
-<td style="text-align:center;">
-30
 </td>
 </tr>
 <tr>
@@ -4741,6 +5823,18 @@ site40
 0
 </td>
 <td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
@@ -4771,208 +5865,18 @@ site40
 30
 </td>
 </tr>
-<tr>
-<td style="text-align:left;">
-site13
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-23
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-site18
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-20
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-site31
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-20
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-30
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-site36
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-27
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-site7
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-25
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-</tr>
 </tbody>
 </table>
 </div>
 <p>Visualizing the data can be easy with a built in shiny app function.
-To see an example shiny app you can go <a href="https://dominiquemaucieri.shinyapps.io/example/">here</a> or the
-following code.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runGitHub</span>(<span class="st">&quot;quadcleanR&quot;</span>, <span class="at">username =</span> <span class="st">&quot;DominiqueMaucieri&quot;</span>, <span class="at">subdir =</span> <span class="st">&quot;inst/shiny/example&quot;</span>, <span class="at">ref =</span> <span class="st">&quot;main&quot;</span>)</span></code></pre></div>
-<p>The data used in this example is this data set we have just cleaned.
-However this does not help you as this is not your own data. You can use
-the following code to produce a shiny app of your data, which you can
-then explore your data.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_app</span>(<span class="at">data =</span> simple_cleaned, <span class="at">xaxis =</span> <span class="fu">colnames</span>(simple_cleaned[,<span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>]), <span class="at">yaxis =</span> <span class="st">&quot;prop_cover&quot;</span>)</span></code></pre></div>
+To see an example shiny app you can go <a href="https://dominiquemaucieri.shinyapps.io/example/">here</a> but to
+visualize the data we have cleaned up here, we can run the following
+code.</p>
+<p>A good combination to examine this shiny with is : - y-axis:
+prop_cover - x-axis: Field.Season - color: TimeBlock (treat as discrete)
+- facet: HD_cat - group by: Field.Season, TimeBlock, Site and HD_Cat -
+view as a box plot</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_app</span>(<span class="at">data =</span> AllQuads_cropclean, <span class="at">xaxis =</span> <span class="fu">colnames</span>(AllQuads_cropclean[,<span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>]), <span class="at">yaxis =</span> <span class="st">&quot;prop_cover&quot;</span>)</span></code></pre></div>
 </div>
 
 

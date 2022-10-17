@@ -1,5 +1,5 @@
 ---
-title: "Cleaning and Cropping Quadrat Data"
+title: "Cleaning and Cropping Quadrat Data from CoralNet"
 description: >
   A complex walk through of how to clean up quadrat data using the `quadcleanR`
   package. This will go through all the functions inclusing the `crop_area()`
@@ -7,14 +7,14 @@ description: >
   for those who have to crop quadrats and clean up the data. 
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Cleaning and Cropping Quadrat Data}
+  %\VignetteIndexEntry{Cleaning and Cropping Quadrat Data from CoralNet}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 # Introduction
 
-This vignette will walk you through cleaning up quadrat data to produce easy to analyze data frames.
+This vignette will walk you through cleaning up quadrat data from [CoralNet](https://coralnet.ucsd.edu/) to produce easy to analyze data frames.
 
 A little about the data:
 
@@ -140,7 +140,7 @@ SQuad_usable <- usable_obs(SQuad_colnames, c("Shadow", "Transect_hardware", "Unc
                             max = TRUE, cutoff = 10)
 
 SQuad_removed <- usable_obs(SQuad_colnames, c("Shadow", "Transect_hardware", "Unclear"),
-                             max = TRUE, cutoff = 10, print_max = TRUE)
+                             max = TRUE, cutoff = 10, above_cutoff = TRUE)
 
 ```
 
@@ -196,7 +196,7 @@ LQuad_usable <- usable_obs(LQuad_colnames, c("Shadow", "Transect_hardware", "Unc
                              max = TRUE, cutoff = 0.1*54)
 
 LQuad_removed <- usable_obs(LQuad_colnames, c("Shadow", "Transect_hardware", "Unclear"),
-                             max = TRUE, cutoff = 0.1*54, print_max = TRUE)
+                             max = TRUE, cutoff = 0.1*54, above_cutoff = TRUE)
 
 ```
 
@@ -342,7 +342,15 @@ knitr::kable(sample_size(AllQuads_cropclean, dim_1 = "Site", dim_2 = "Field.Seas
 ```
 
 
-Visualizing the data can be easy with a built in shiny app function. To see an example shiny app you can go [here](https://dominiquemaucieri.shinyapps.io/example/) but to visualize the data we have cleaned up here, we can run the following code:
+Visualizing the data can be easy with a built in shiny app function. To see an example shiny app you can go [here](https://dominiquemaucieri.shinyapps.io/example/) but to visualize the data we have cleaned up here, we can run the following code.
+
+A good combination to examine this shiny with is :
+  - y-axis: prop_cover
+  - x-axis: Field.Season
+  - color: TimeBlock (treat as discrete)
+  - facet: HD_cat
+  - group by: Field.Season, TimeBlock, Site and HD_Cat
+  - view as a box plot
 
 ```{r shiny app, eval= FALSE}
 

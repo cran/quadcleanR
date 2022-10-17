@@ -9,7 +9,7 @@ usable_obs(
   unusable,
   max = FALSE,
   cutoff,
-  print_max = FALSE,
+  above_cutoff = FALSE,
   rm_unusable = TRUE
 )
 }
@@ -26,8 +26,8 @@ threshold cutoff needs to be provided where rows containing more than the
 \item{cutoff}{The threshold number where rows containing more unusable observations
 than the \code{cutoff} will be removed from the data frame.}
 
-\item{print_max}{If \code{print_max = TRUE}, the data frame returned will be the
-rows containing more unusable observations than the cutoff. If \code{print_max = FALSE}
+\item{above_cutoff}{If \code{above_cutoff = TRUE}, the data frame returned will be the
+rows containing more unusable observations than the cutoff. If \code{above_cutoff = FALSE}
 the data frame returned will be the rows containing equal to or less unusable
 observations than the cutoff.}
 
@@ -62,11 +62,11 @@ coral_cover <- data.frame(Sites, Transect, Acropora.sp, Gardineroseris.sp,
 
 usable_obs(coral_cover, c("Blurry", "Unk"))
 
-usable_obs(coral_cover, c("Blurry", "Unk"), print_max = TRUE)
+usable_obs(coral_cover, c("Blurry", "Unk"), above_cutoff = TRUE)
 
 usable_obs(coral_cover, c("Blurry", "Unk"), rm_unusable = FALSE)
 
 usable_obs(coral_cover, c("Blurry", "Unk"), max = TRUE, cutoff = 8)
 
-usable_obs(coral_cover, c("Blurry", "Unk"), max = TRUE, cutoff = 8, print_max = TRUE)
+usable_obs(coral_cover, c("Blurry", "Unk"), max = TRUE, cutoff = 8, above_cutoff = TRUE)
 }

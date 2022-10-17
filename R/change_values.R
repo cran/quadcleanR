@@ -6,7 +6,7 @@
 #' @param data A data frame.
 #' @param column The column in which to change values.
 #' @param from A vector containing the values you wish to change.
-#' @param to A vector contain the values you which to change to, ensuring these
+#' @param to A vector contain the values you want to change to, ensuring these
 #'     occur in the same order as the `from` vector.
 #'
 #' @return A data frame containing new values within the specified column.

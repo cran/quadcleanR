@@ -1,19 +1,19 @@
 ---
-title: "Simple Cleaning Quadrat Data"
+title: "Cleaning Quadrat Data from CoralNet"
 description: >
   A simple walk through of how to clean up quadrat data using the `quadcleanR`
   package. This will go through all the functions except the `crop_area()`
   function, as well as visualizing the resulting data.
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Simple Cleaning Quadrat Data}
+  %\VignetteIndexEntry{Cleaning Quadrat Data from CoralNet}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 # Introduction
 
-This vignette will walk you through cleaning up quadrat data to produce an easy to analyze data frame.
+This vignette will walk you through cleaning up quadrat data from [CoralNet](https://coralnet.ucsd.edu/) to produce an easy to analyze data frame.
 
 A little about the data:
 
@@ -134,7 +134,7 @@ LQuad_usable <- usable_obs(LQuad_colnames, c("Shadow", "Transect_hardware", "Unc
                             max = TRUE, cutoff = 10)
 
 LQuad_removed <- usable_obs(LQuad_colnames, c("Shadow", "Transect_hardware", "Unclear"),
-                             max = TRUE, cutoff = 10, print_max = TRUE)
+                             max = TRUE, cutoff = 10, above_cutoff = TRUE)
 
 ```
 
@@ -227,7 +227,7 @@ The final things I will add to this data to get it in shape for analysis is a fi
 
 B_LQuad_timeblock <- categorize(B_LQuad_enviro, column = "Field.Season", values = unique(B_LQuad_enviro$Field.Season), name = "TimeBlock", binary = FALSE, exact = TRUE, categories = c(rep("Before", times = 4), rep("During", times = 3), rep("After", times = 4)))
 
-simple_cleaned <- keep_rm(B_LQuad_timeblock, values = "Soft_coral", select = "row", colname = "functional_group")
+final_cleaned <- keep_rm(B_LQuad_timeblock, values = "Soft_coral", select = "row", colname = "functional_group")
 
 ```
 
@@ -238,14 +238,14 @@ This data has now been sufficiently cleaned and can be used for many different a
 
 ```{r sample sizes, results = 'hide'}
 
-sample_size(simple_cleaned, dim_1 = "Site", dim_2 = "Field.Season", count = "Quadrat")
+sample_size(final_cleaned, dim_1 = "Site", dim_2 = "Field.Season", count = "Quadrat")
 
 ```
 
 
 ```{r sample sizes cleaner md output, message = FALSE, echo = FALSE, results='asis'}
 
-knitr::kable(sample_size(simple_cleaned, dim_1 = "Site", dim_2 = "Field.Season", count = "Quadrat"), align = 'c')%>%
+knitr::kable(sample_size(final_cleaned, dim_1 = "Site", dim_2 = "Field.Season", count = "Quadrat"), align = 'c')%>%
   kable_styling("striped", full_width = F) %>% 
   scroll_box(width = "100%")
 
@@ -253,6 +253,15 @@ knitr::kable(sample_size(simple_cleaned, dim_1 = "Site", dim_2 = "Field.Season",
 
 
 Visualizing the data can be easy with a built in shiny app function. To see an example shiny app you can go [here](https://dominiquemaucieri.shinyapps.io/example/) or the following code.
+
+A good combination to examine this shiny with is :
+  - y-axis: prop_cover
+  - x-axis: Field.Season
+  - color: TimeBlock (treat as discrete)
+  - facet: HD_cat
+  - group by: Field.Season, TimeBlock, Site and HD_Cat
+  - view as a box plot
+
 
 ```{r shiny app from git, eval = FALSE}
 
@@ -264,7 +273,7 @@ The data used in this example is this data set we have just cleaned. However thi
 
 ```{r shiny app, eval= FALSE}
 
-visualize_app(data = simple_cleaned, xaxis = colnames(simple_cleaned[,1:13]), yaxis = "prop_cover")
+visualize_app(data = final_cleaned, xaxis = colnames(final_cleaned[,1:13]), yaxis = "prop_cover")
 
 ```
 

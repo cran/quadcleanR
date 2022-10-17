@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Simple Examples of Functions</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Simple Examples of Functions</h1>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This vignette will walk you through the different functions for
+cleaning quadrat data within the ‘quadcleanR’ package.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quadcleanR)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;corals&quot;</span>)</span></code></pre></div>
+</div>
+<div id="cleaning-functions" class="section level1">
+<h1>Cleaning Functions</h1>
+<p>There are 5 cleaning functions within quadcleanR.</p>
+<div id="change_names" class="section level2">
+<h2>1. change_names()</h2>
+<p>Using a new data frame of labels, change column names in one
+function. Helpful if column names are shorthands or contain spaces and
+characters that are not supported in column names in R.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;coral_labelset&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>corals_change_names <span class="ot">&lt;-</span> <span class="fu">change_names</span>(corals, coral_labelset, <span class="at">from =</span> <span class="st">&quot;short_name&quot;</span>, <span class="at">to =</span> <span class="st">&quot;full_name&quot;</span>)</span></code></pre></div>
+</div>
+<div id="change_values" class="section level2">
+<h2>2. change_values()</h2>
+<p>Using two vectors, change the values in one column to a new set of
+values. Helpful if you need to change many values at once, like updating
+changes to site names or taxonomy.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>corals_change_values <span class="ot">&lt;-</span> <span class="fu">change_values</span>(corals_change_names, <span class="st">&quot;Field.Season&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;KI2015a&quot;</span>, <span class="st">&quot;KI2016a&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;KI2015&quot;</span>, <span class="st">&quot;KI2016&quot;</span>))</span></code></pre></div>
+</div>
+<div id="keep_rm" class="section level2">
+<h2>3. keep_rm()</h2>
+<p>Using a character, or part of character select rows or columns of the
+data frame to either keep or remove. A more customizable way to subset
+your data as you can keep or remove based on partial matches, or cells
+containing select characters.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>corals_keep_rm <span class="ot">&lt;-</span> <span class="fu">keep_rm</span>(corals_change_values, <span class="st">&quot;DEEP&quot;</span> , <span class="at">select =</span> <span class="st">&quot;row&quot;</span>, <span class="at">keep =</span> <span class="cn">FALSE</span>, <span class="at">drop_levels =</span> <span class="cn">TRUE</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>, <span class="st">&quot;Site&quot;</span>)</span></code></pre></div>
+</div>
+<div id="rm_chr" class="section level2">
+<h2>4. rm_chr()</h2>
+<p>Parts of characters can be removed based on a vector of removal
+characters. When working with images, this can be helpful to remove
+extra characters from image IDs, or anywhere else where you want to
+remove specific characters from your data.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>corals_rm_chr <span class="ot">&lt;-</span> <span class="fu">rm_chr</span>(corals_keep_rm, <span class="at">rm =</span> <span class="fu">c</span>(<span class="st">&quot;.jpg&quot;</span>, <span class="st">&quot;.jpeg&quot;</span>), <span class="at">full_selection =</span> <span class="cn">FALSE</span>, <span class="at">cols =</span> <span class="st">&quot;Quadrat&quot;</span>)</span></code></pre></div>
+</div>
+<div id="sum_cols" class="section level2">
+<h2>5. sum_cols()</h2>
+<p>Select columns and attach a vector of their new names, then columns
+with matching names will have each row summed. This is helpful to
+simplify your data quickly, like simplifying at a higher taxonomic
+group.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>corals_sum_cols <span class="ot">&lt;-</span> <span class="fu">sum_cols</span>(corals_rm_chr, <span class="at">from =</span> <span class="fu">c</span>(<span class="st">&quot;Acropora_corymbose&quot;</span>, <span class="st">&quot;Acropora_digitate&quot;</span>, <span class="st">&quot;Acropora_tabulate&quot;</span>), <span class="at">to =</span> <span class="fu">c</span>(<span class="st">&quot;Acropora_spp&quot;</span>, <span class="st">&quot;Acropora_spp&quot;</span>, <span class="st">&quot;Acropora_spp&quot;</span>))</span></code></pre></div>
+</div>
+</div>
+<div id="adding-functions" class="section level1">
+<h1>Adding Functions</h1>
+<p>There are 2 adding functions within quadcleanR.</p>
+<div id="add_data" class="section level2">
+<h2>1. add_data()</h2>
+<p>Using key identifying columns, add additional columns to an existing
+data frame. Helpful for adding environmental or taxonomic data to your
+quadrat data</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;environmental_data&quot;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>corals_add_data <span class="ot">&lt;-</span> <span class="fu">add_data</span>(corals_sum_cols, environmental_data, <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;HD_Cat&quot;</span>, <span class="st">&quot;HD_Cont&quot;</span>), <span class="at">data_id =</span> <span class="st">&quot;Site&quot;</span>, <span class="at">add_id =</span> <span class="st">&quot;Site&quot;</span>, <span class="at">number =</span> <span class="dv">4</span>)</span></code></pre></div>
+</div>
+<div id="categorize" class="section level2">
+<h2>2. categorize()</h2>
+<p>Using a column within the data frame, categorize rows in a binary of
+yes or no, or customize with a set of category names. Especially useful
+for turning ID tags into useful categories for analysis such as
+morphology, taxonomy etc.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>corals_categorize <span class="ot">&lt;-</span> <span class="fu">categorize</span>(corals_add_data, <span class="st">&quot;Field.Season&quot;</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;2015&quot;</span>, <span class="st">&quot;2016&quot;</span>, <span class="st">&quot;2017&quot;</span>), <span class="at">name =</span> <span class="st">&quot;ElNino&quot;</span>, <span class="at">binary =</span> <span class="cn">FALSE</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>, <span class="at">categories =</span> <span class="fu">c</span>(<span class="st">&quot;Before&quot;</span>, <span class="st">&quot;During&quot;</span>, <span class="st">&quot;After&quot;</span>))</span></code></pre></div>
+</div>
+</div>
+<div id="processing-functions" class="section level1">
+<h1>Processing Functions</h1>
+<p>There are 3 processing functions within quadcleanR.</p>
+<div id="cover_calc" class="section level2">
+<h2>1. cover_calc()</h2>
+<p>Convert the number of observations for each species or non-species to
+proportion or percent cover within each row based on the total number of
+observations in each row. Useful for quadrats with varying numbers of
+observations to calculate each row’s percent cover all at once.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>corals_cover_calc <span class="ot">&lt;-</span> <span class="fu">cover_calc</span>(corals_categorize, <span class="at">spp =</span> <span class="fu">colnames</span>(corals_categorize[,<span class="fu">c</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">15</span>)]), <span class="at">prop =</span> <span class="cn">TRUE</span>, <span class="at">total =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="crop_area" class="section level2">
+<h2>2. crop_area()</h2>
+<p>Using the location of annotated points within quadrats and the size
+of the quadrat, crop quadrat data to a smaller area, while maintaining
+the spatial relationships between points. Useful for making different
+sized quadrat data comparable.</p>
+<p>This function is covered in depth with the Why to Crop Quadrats by
+Area vignette.</p>
+</div>
+<div id="usable_obs" class="section level2">
+<h2>3. usable_obs()</h2>
+<p>Sum columns containing unusable observations and remove rows that
+contain more than the specified cutoff number of unusable points.
+Helpful if there are annotations that were unidentifiable and you want
+to remove them from the total usable observations, and you can remove
+quadrats with too many unusable observations.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>corals_usable_obs <span class="ot">&lt;-</span> <span class="fu">usable_obs</span>(corals_cover_calc, <span class="fu">c</span>(<span class="st">&quot;Unclear&quot;</span>, <span class="st">&quot;Shadow&quot;</span>), <span class="at">max =</span> <span class="cn">TRUE</span>, <span class="at">cutoff =</span> <span class="fl">0.9</span>, <span class="at">above_cutoff =</span> <span class="cn">FALSE</span>, <span class="at">rm_unusable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="assessing-functions" class="section level1">
+<h1>Assessing Functions</h1>
+<p>There are 2 assessing functions within quadcleanR.</p>
+<div id="sample_size" class="section level2">
+<h2>1. sample_size()</h2>
+<p>Specify which columns to use to produce a table with sample sizes.
+Helpful to visualize number of samples in your data.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>corals_sample_size <span class="ot">&lt;-</span> <span class="fu">sample_size</span>(corals_usable_obs, <span class="at">dim_1 =</span> <span class="st">&quot;Site&quot;</span>, <span class="at">dim_2 =</span> <span class="st">&quot;Field.Season&quot;</span>, <span class="at">count =</span> <span class="st">&quot;Quadrat&quot;</span>)</span></code></pre></div>
+</div>
+<div id="visualize_app" class="section level2">
+<h2>2. visualize_app()</h2>
+<p>Using an interactive shiny app, visualize and explore cleaned quadrat
+data.</p>
+<p>A good combination to examine this shiny with is : - y-axis:
+Sarcophyton - x-axis: Field.Season - color: ElNino (treat as discrete) -
+facet: HD_cat - group by: Field.Season, ElNino, Site and HD_Cat - view
+as a violin plot</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>corals_usable_obs<span class="sc">$</span>ElNino <span class="ot">&lt;-</span> <span class="fu">factor</span>(corals_usable_obs<span class="sc">$</span>ElNino, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Before&quot;</span>, <span class="st">&quot;During&quot;</span>, <span class="st">&quot;After&quot;</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>corals_usable_obs<span class="sc">$</span>HD_Cat <span class="ot">&lt;-</span> <span class="fu">factor</span>(corals_usable_obs<span class="sc">$</span>HD_Cat, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Very High&quot;</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Medium&quot;</span>, <span class="st">&quot;Low&quot;</span>, <span class="st">&quot;Very Low&quot;</span>))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_app</span>(<span class="at">data =</span> corals_usable_obs, <span class="at">xaxis =</span> <span class="fu">colnames</span>(corals_usable_obs[,<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)]), <span class="at">yaxis =</span> <span class="fu">colnames</span>(corals_usable_obs[,<span class="fu">c</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">13</span>)]))</span></code></pre></div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

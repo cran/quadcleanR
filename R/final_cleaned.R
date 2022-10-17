@@ -1,7 +1,7 @@
-#' @title Simple cleaned quadrat data
+#' @title Final cleaned quadrat data
 #'
-#' @description A \code{data_frame} that was created with the Simple Cleaning
-#'     Quadrat Data vignette. This is an example data frame of how the `quadcleanR`
+#' @description A \code{data_frame} that was created with the Cleaning Quadrat
+#'     Data from CoralNet. This is an example data frame of how the `quadcleanR`
 #'     package can be useful in cleaning quadrat data.
 #'
 #' @format A \code{data_frame} with 14 columns, which are:
@@ -23,4 +23,4 @@
 #' \item{life_history}{Life history classification for each substrate.}
 #' \item{prop_cover}{The proportion cover for each substrate.}
 #' }
-"simple_cleaned"
+"final_cleaned"

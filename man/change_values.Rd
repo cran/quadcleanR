@@ -13,7 +13,7 @@ change_values(data, column, from, to)
 
 \item{from}{A vector containing the values you wish to change.}
 
-\item{to}{A vector contain the values you which to change to, ensuring these
+\item{to}{A vector contain the values you want to change to, ensuring these
 occur in the same order as the \code{from} vector.}
 }
 \value{

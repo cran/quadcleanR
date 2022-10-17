@@ -77,7 +77,7 @@ LQuad_usable <- usable_obs(LQuad_colnames, c("Shadow", "Transect_hardware", "Unc
                             max = TRUE, cutoff = 10)
 
 LQuad_removed <- usable_obs(LQuad_colnames, c("Shadow", "Transect_hardware", "Unclear"),
-                             max = TRUE, cutoff = 10, print_max = TRUE)
+                             max = TRUE, cutoff = 10, above_cutoff = TRUE)
 
 
 ## ----prop cover calc----------------------------------------------------------
@@ -126,17 +126,17 @@ B_LQuad_enviro <- add_data(B_LQuad_LH_FG, environmental_data, cols = c("HD_Cat",
 
 B_LQuad_timeblock <- categorize(B_LQuad_enviro, column = "Field.Season", values = unique(B_LQuad_enviro$Field.Season), name = "TimeBlock", binary = FALSE, exact = TRUE, categories = c(rep("Before", times = 4), rep("During", times = 3), rep("After", times = 4)))
 
-simple_cleaned <- keep_rm(B_LQuad_timeblock, values = "Soft_coral", select = "row", colname = "functional_group")
+final_cleaned <- keep_rm(B_LQuad_timeblock, values = "Soft_coral", select = "row", colname = "functional_group")
 
 
 ## ----sample sizes, results = 'hide'-------------------------------------------
 
-sample_size(simple_cleaned, dim_1 = "Site", dim_2 = "Field.Season", count = "Quadrat")
+sample_size(final_cleaned, dim_1 = "Site", dim_2 = "Field.Season", count = "Quadrat")
 
 
 ## ----sample sizes cleaner md output, message = FALSE, echo = FALSE, results='asis'----
 
-knitr::kable(sample_size(simple_cleaned, dim_1 = "Site", dim_2 = "Field.Season", count = "Quadrat"), align = 'c')%>%
+knitr::kable(sample_size(final_cleaned, dim_1 = "Site", dim_2 = "Field.Season", count = "Quadrat"), align = 'c')%>%
   kable_styling("striped", full_width = F) %>% 
   scroll_box(width = "100%")
 
@@ -148,6 +148,6 @@ knitr::kable(sample_size(simple_cleaned, dim_1 = "Site", dim_2 = "Field.Season",
 
 ## ----shiny app, eval= FALSE---------------------------------------------------
 #  
-#  visualize_app(data = simple_cleaned, xaxis = colnames(simple_cleaned[,1:13]), yaxis = "prop_cover")
+#  visualize_app(data = final_cleaned, xaxis = colnames(final_cleaned[,1:13]), yaxis = "prop_cover")
 #  
 

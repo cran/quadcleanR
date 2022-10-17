@@ -42,20 +42,41 @@ cover_calc <- function(data, spp, prop = TRUE, total = FALSE){
     if(prop == TRUE){
 
         total_i <- rowSums(data[,colnames(data) %in% spp_vector])
+        if(length(total_i[total_i == 0]) > 0 ){
+           warning("rows contain 0 observations")
+          total_i_0 <- total_i
+          total_i_0[total_i_0 == 0] <- 1
+          for(j in 1:length(spp_vector)){
+            data[[spp_vector[j]]] <- data[[spp_vector[j]]]/total_i_0
+          }
+        }
 
-        for(j in 1:length(spp_vector)){
-          data[[spp_vector[j]]] <- data[[spp_vector[j]]]/total_i
-
+        if(length(total_i[total_i == 0]) == 0 ){
+          for(j in 1:length(spp_vector)){
+            data[[spp_vector[j]]] <- data[[spp_vector[j]]]/total_i
+          }
+        }
       }
-    }
+
     if(prop == FALSE){
         total_i <- rowSums(data[,colnames(data) %in% spp_vector])
+        if(length(total_i[total_i == 0]) > 0 ){
+          warning("rows contain 0 observations")
+          total_i_0 <- total_i
+          total_i_0[total_i_0 == 0] <- 1
+          for(j in 1:length(spp_vector)){
+            data[[spp_vector[j]]] <- (data[[spp_vector[j]]]/total_i_0) * 100
 
-        for(j in 1:length(spp_vector)){
-          data[[spp_vector[j]]] <- (data[[spp_vector[j]]]/total_i) * 100
+          }
+        }
 
-      }
+        if(length(total_i[total_i == 0]) == 0 ){
+          for(j in 1:length(spp_vector)){
+            data[[spp_vector[j]]] <- (data[[spp_vector[j]]]/total_i) * 100
+          }
+        }
     }
+
    return(data)
 
   }
@@ -65,19 +86,44 @@ cover_calc <- function(data, spp, prop = TRUE, total = FALSE){
 
    if(prop == TRUE){
      data[["total_pts"]] <- rowSums(data[,colnames(data) %in% spp_vector])
+     if(nrow(data[data$total_pts == 0,]) > 0 ){
+       warning("rows contain 0 observations")
+       total_i_0 <- data$total_pts
+       total_i_0[total_i_0 == 0] <- 1
+       for(j in 1:length(spp_vector)){
+         data[[spp_vector[j]]] <- data[[spp_vector[j]]]/total_i_0
 
+       }
+     }
+
+     if(nrow(data[data$total_pts == 0,]) == 0 ){
        for(j in 1:length(spp_vector)){
          data[[spp_vector[j]]] <- data[[spp_vector[j]]]/data[["total_pts"]]
 
+       }
      }
+
    }
    if(prop == FALSE){
      data[["total_pts"]] <- rowSums(data[,colnames(data) %in% spp_vector])
 
+     if(nrow(data[data$total_pts == 0,]) > 0 ){
+       warning("rows contain 0 observations")
+       total_i_0 <- data$total_pts
+       total_i_0[total_i_0 == 0] <- 1
+       for(j in 1:length(spp_vector)){
+         data[[spp_vector[j]]] <- (data[[spp_vector[j]]]/total_i_0) * 100
+
+       }
+     }
+
+     if(nrow(data[data$total_pts == 0,]) == 0 ){
        for(j in 1:length(spp_vector)){
          data[[spp_vector[j]]] <- (data[[spp_vector[j]]]/data[["total_pts"]]) * 100
 
-      }
+       }
+     }
+
    }
    return(data)
 

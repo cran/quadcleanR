@@ -14,8 +14,8 @@
 #'     `cutoff` will be removed from the data frame.
 #' @param cutoff The threshold number where rows containing more unusable observations
 #'     than the `cutoff` will be removed from the data frame.
-#' @param print_max If `print_max = TRUE`, the data frame returned will be the
-#'     rows containing more unusable observations than the cutoff. If `print_max = FALSE`
+#' @param above_cutoff If `above_cutoff = TRUE`, the data frame returned will be the
+#'     rows containing more unusable observations than the cutoff. If `above_cutoff = FALSE`
 #'     the data frame returned will be the rows containing equal to or less unusable
 #'     observations than the cutoff.
 #' @param rm_unusable If `rm_unusable = TRUE`, the columns named in the unusable
@@ -42,21 +42,23 @@
 #'
 #' usable_obs(coral_cover, c("Blurry", "Unk"))
 #'
-#' usable_obs(coral_cover, c("Blurry", "Unk"), print_max = TRUE)
+#' usable_obs(coral_cover, c("Blurry", "Unk"), above_cutoff = TRUE)
 #'
 #' usable_obs(coral_cover, c("Blurry", "Unk"), rm_unusable = FALSE)
 #'
 #' usable_obs(coral_cover, c("Blurry", "Unk"), max = TRUE, cutoff = 8)
 #'
-#' usable_obs(coral_cover, c("Blurry", "Unk"), max = TRUE, cutoff = 8, print_max = TRUE)
+#' usable_obs(coral_cover, c("Blurry", "Unk"), max = TRUE, cutoff = 8, above_cutoff = TRUE)
 
 
-usable_obs <- function(data, unusable, max = FALSE, cutoff, print_max = FALSE, rm_unusable = TRUE){
+usable_obs <- function(data, unusable, max = FALSE, cutoff, above_cutoff = FALSE, rm_unusable = TRUE){
 
   unusable_vector <- c(unusable)
   data[["unusable"]] <- "error"
 
   data$unusable <- rowSums(data[,colnames(data) %in% unusable_vector])
+
+  if(sum(is.na(data$unusable)) > 0){stop("unusable observations contain NA or NaN")}
 
   if(rm_unusable == TRUE){
     data <- data[!colnames(data) %in% unusable_vector]
@@ -64,13 +66,13 @@ usable_obs <- function(data, unusable, max = FALSE, cutoff, print_max = FALSE, r
   }
   if(rm_unusable == FALSE){warning('duplication exists in the data frame')}
   if(max == TRUE){
-    if(print_max == TRUE){
+    if(above_cutoff == TRUE){
       data_rm <- data[data$unusable > cutoff,]
       rownames(data_rm) <- NULL
       return(data_rm)
 
     }
-    if(print_max == FALSE){
+    if(above_cutoff == FALSE){
       data <- data[data$unusable <= cutoff,]
       rownames(data) <- NULL
       return(data)
@@ -78,7 +80,7 @@ usable_obs <- function(data, unusable, max = FALSE, cutoff, print_max = FALSE, r
     }
   }
   if(max == FALSE){
-    if(print_max == TRUE){warning('no max specified')}
+    if(above_cutoff == TRUE){warning('no max specified')}
     return(data)
 
   }

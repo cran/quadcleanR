@@ -1,0 +1,177 @@
+---
+title: "Simple Examples of Functions"
+description: >
+  Examples of how to use the `quadcleanR` package functions for data 
+  cleaning and processing. This vignette will go through all the functions 
+  except the `crop_area()` function, which is explained in further details 
+  in the Why to Crop Quadrats by Area vignette.
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Simple Examples of Functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+This vignette will walk you through the different functions for cleaning quadrat data within the 'quadcleanR' package. 
+
+```{r setup, warning=FALSE, message=FALSE}
+
+library(quadcleanR)
+
+data("corals")
+
+```
+
+
+# Cleaning Functions
+
+There are 5 cleaning functions within quadcleanR.
+
+## 1. change_names()
+
+Using a new data frame of labels, change column names in one function. Helpful if column names are shorthands or contain spaces and characters that are not supported in column names in R.
+
+```{r change_names, warning=FALSE, message=FALSE}
+
+data("coral_labelset")
+
+corals_change_names <- change_names(corals, coral_labelset, from = "short_name", to = "full_name")
+
+```
+
+
+## 2. change_values()
+
+Using two vectors, change the values in one column to a new set of values. Helpful if you need to change many values at once, like updating changes to site names or taxonomy.
+
+```{r change_values, warning=FALSE, message=FALSE}
+
+corals_change_values <- change_values(corals_change_names, "Field.Season", c("KI2015a", "KI2016a"), c("KI2015", "KI2016"))
+
+```
+
+
+## 3. keep_rm()
+Using a character, or part of character select rows or columns of the data frame to either keep or remove. A more customizable way to subset your data as you can keep or remove based on partial matches, or cells containing select characters.
+
+```{r keep_rm, warning=FALSE, message=FALSE}
+
+corals_keep_rm <- keep_rm(corals_change_values, "DEEP" , select = "row", keep = FALSE, drop_levels = TRUE, exact = FALSE, "Site")
+
+```
+
+
+## 4. rm_chr()
+Parts of characters can be removed based on a vector of removal characters. When working with images, this can be helpful to remove extra characters from image IDs, or anywhere else where you want to remove specific characters from your data. 
+
+
+```{r rm_chr, warning=FALSE, message=FALSE}
+
+corals_rm_chr <- rm_chr(corals_keep_rm, rm = c(".jpg", ".jpeg"), full_selection = FALSE, cols = "Quadrat")
+
+```
+
+
+## 5. sum_cols()
+Select columns and attach a vector of their new names, then columns with matching names will have each row summed. This is helpful to simplify your data quickly, like simplifying at a higher taxonomic group.
+
+```{r sum_cols, warning=FALSE, message=FALSE}
+
+corals_sum_cols <- sum_cols(corals_rm_chr, from = c("Acropora_corymbose", "Acropora_digitate", "Acropora_tabulate"), to = c("Acropora_spp", "Acropora_spp", "Acropora_spp"))
+
+```
+
+
+# Adding Functions
+
+There are 2 adding functions within quadcleanR.
+
+## 1. add_data()
+Using key identifying columns, add additional columns to an existing data frame. Helpful for adding environmental or taxonomic data to your quadrat data 
+
+```{r add_data, warning=FALSE, message=FALSE}
+
+data("environmental_data")
+
+corals_add_data <- add_data(corals_sum_cols, environmental_data, cols = c("HD_Cat", "HD_Cont"), data_id = "Site", add_id = "Site", number = 4)
+
+```
+
+
+## 2. categorize()
+Using a column within the data frame, categorize rows in a binary of yes or no, or customize with a set of category names. Especially useful for turning ID tags into useful categories for analysis such as morphology, taxonomy etc.
+
+
+```{r categorize, warning=FALSE, message=FALSE}
+
+corals_categorize <- categorize(corals_add_data, "Field.Season", values = c("2015", "2016", "2017"), name = "ElNino", binary = FALSE, exact = FALSE, categories = c("Before", "During", "After"))
+
+```
+
+
+# Processing Functions
+
+There are 3 processing functions within quadcleanR.
+
+## 1. cover_calc()
+Convert the number of observations for each species or non-species to proportion or percent cover within each row based on the total number of observations in each row. Useful for quadrats with varying numbers of observations to calculate each row's percent cover all at once.
+
+```{r cover_calc, warning=FALSE, message=FALSE}
+
+corals_cover_calc <- cover_calc(corals_categorize, spp = colnames(corals_categorize[,c(7:15)]), prop = TRUE, total = TRUE)
+
+```
+
+## 2. crop_area()
+Using the location of annotated points within quadrats and the size of the quadrat, crop quadrat data to a smaller area, while maintaining the spatial relationships between points. Useful for making different sized quadrat data comparable.
+
+
+This function is covered in depth with the Why to Crop Quadrats by Area vignette.
+
+
+## 3. usable_obs()
+Sum columns containing unusable observations and remove rows that contain more than the specified cutoff number of unusable points. Helpful if there are annotations that were unidentifiable and you want to remove them from the total usable observations, and you can remove quadrats with too many unusable observations.
+
+```{r usable_obs, warning=FALSE, message=FALSE}
+
+corals_usable_obs <- usable_obs(corals_cover_calc, c("Unclear", "Shadow"), max = TRUE, cutoff = 0.9, above_cutoff = FALSE, rm_unusable = TRUE)
+
+```
+
+
+# Assessing Functions
+
+There are 2 assessing functions within quadcleanR.
+
+## 1. sample_size()
+Specify which columns to use to produce a table with sample sizes. Helpful to visualize number of samples in your data.
+
+```{r sample_size, warning=FALSE, message=FALSE}
+
+corals_sample_size <- sample_size(corals_usable_obs, dim_1 = "Site", dim_2 = "Field.Season", count = "Quadrat")
+
+```
+
+## 2. visualize_app()
+Using an interactive shiny app, visualize and explore cleaned quadrat data.
+
+A good combination to examine this shiny with is :
+  - y-axis: Sarcophyton
+  - x-axis: Field.Season
+  - color: ElNino (treat as discrete)
+  - facet: HD_cat
+  - group by: Field.Season, ElNino, Site and HD_Cat
+  - view as a violin plot
+
+```{r visualize_app, eval= FALSE}
+
+corals_usable_obs$ElNino <- factor(corals_usable_obs$ElNino, levels = c("Before", "During", "After"))
+corals_usable_obs$HD_Cat <- factor(corals_usable_obs$HD_Cat, levels = c("Very High", "High", "Medium", "Low", "Very Low"))
+
+
+visualize_app(data = corals_usable_obs, xaxis = colnames(corals_usable_obs[,c(1:6)]), yaxis = colnames(corals_usable_obs[,c(7:13)]))
+
+```
+

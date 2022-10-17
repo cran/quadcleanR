@@ -14,7 +14,7 @@ test1 <- usable_obs(coral_cover, c("Blurry", "Unk"))
 expect_match(colnames(test1[7]), "unusable")
 expect_equal(test1[,7], c(5, 7, 9, 11, 7, 3))
 
-expect_warning(usable_obs(coral_cover, c("Blurry", "Unk"), print_max = TRUE),  "no max specified")
+expect_warning(usable_obs(coral_cover, c("Blurry", "Unk"), above_cutoff = TRUE),  "no max specified")
 
 expect_warning(usable_obs(coral_cover, c("Blurry", "Unk"), rm_unusable = FALSE), "duplication exists in the data frame")
 test2 <- suppressWarnings(usable_obs(coral_cover, c("Blurry", "Unk"), rm_unusable = FALSE))
@@ -23,6 +23,20 @@ expect_match(colnames(test2[9]), "unusable")
 test3 <- usable_obs(coral_cover, c("Blurry", "Unk"), max = TRUE, cutoff = 8)
 expect_equal(nrow(test3), 4)
 
-test4 <- usable_obs(coral_cover, c("Blurry", "Unk"), max = TRUE, cutoff = 8, print_max = TRUE)
+test4 <- usable_obs(coral_cover, c("Blurry", "Unk"), max = TRUE, cutoff = 8, above_cutoff = TRUE)
 expect_equal(nrow(test4), 2)
 
+
+Sites <- as.factor(c("One"))
+Blurry <- c(3)
+Unk <- c(NA)
+coral_cover_2 <- data.frame(Sites, Blurry, Unk)
+
+expect_error(usable_obs(coral_cover_2, c("Blurry", "Unk")))
+
+Sites <- as.factor(c("One"))
+Blurry <- c(3)
+Unk <- c(NaN)
+coral_cover_3 <- data.frame(Sites, Blurry, Unk)
+
+expect_error(usable_obs(coral_cover_3, c("Blurry", "Unk")))

@@ -72,7 +72,7 @@ SQuad_usable <- usable_obs(SQuad_colnames, c("Shadow", "Transect_hardware", "Unc
                             max = TRUE, cutoff = 10)
 
 SQuad_removed <- usable_obs(SQuad_colnames, c("Shadow", "Transect_hardware", "Unclear"),
-                             max = TRUE, cutoff = 10, print_max = TRUE)
+                             max = TRUE, cutoff = 10, above_cutoff = TRUE)
 
 
 ## ----large quad---------------------------------------------------------------
@@ -113,7 +113,7 @@ LQuad_usable <- usable_obs(LQuad_colnames, c("Shadow", "Transect_hardware", "Unc
                              max = TRUE, cutoff = 0.1*54)
 
 LQuad_removed <- usable_obs(LQuad_colnames, c("Shadow", "Transect_hardware", "Unclear"),
-                             max = TRUE, cutoff = 0.1*54, print_max = TRUE)
+                             max = TRUE, cutoff = 0.1*54, above_cutoff = TRUE)
 
 
 ## ----bind quad dfs------------------------------------------------------------
